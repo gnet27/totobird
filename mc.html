@@ -1,21 +1,55 @@
 <head>
 	<style>
-		#download-button {
-			background-color: white;
-			color: #2980b9;
-			border: 2px solid #2980b9;
-			font-family: inherit;
-			outline: none;
-			min-width: 100px;
-			padding: 10px;
-			border-radius: 2px;
-			cursor: pointer;
-			display: block;
-			margin: 0 auto;
-		}
+#demo-container {
+	width: 400px;
+	margin: 40px auto 40px auto;
+}
+
+#download-button {
+	background-color: white;
+	color: #2980b9;
+	border: 2px solid #2980b9;
+	font-family: inherit;
+	outline: none;
+	min-width: 100px;
+	padding: 10px;
+	border-radius: 2px;
+	cursor: pointer;
+	display: block;
+	margin: 0 auto;
+}
+
+#start-download {
+	text-align: center;
+	display: none;
+}
+
+#download-progress-container {
+	border: 1px solid #cccccc;
+	padding: 4px;
+	display: none;
+	height: 30px;
+}
+
+#download-progress {
+	background-color: #2980b9;
+	display: inline-block;
+	height: 100%;
+}
+
+#save-file {
+	color: #2980b9;
+	text-decoration: none;
+	display: none;
+	text-align: center;
+}
+
+#save-file:hover {
+	text-decoration: underline;
+}
 	</style>
 	<script>
-		var _OBJECT_URL;
+var _OBJECT_URL;
 
 // Call an AJAX
 document.querySelector('#download-button').addEventListener('click', function() {
@@ -59,10 +93,16 @@ document.querySelector('#download-button').addEventListener('click', function() 
     
     request.send(); 
 });
-
 	</script>
 </head>
-</body>
-	<button id="download-button">Download
-	<a id="save-file">Save File</a>
+
+<body>
+<div id="demo-container">
+	<button id="download-button">Download</button>
+	<div id="download-ui-container">
+		<div id="start-download">Starting Download..</div>
+		<div id="download-progress-container"><div id="download-progress"></div></div>
+		<a id="save-file">Save File</a>
+	</div>
+</div>
 </body>
