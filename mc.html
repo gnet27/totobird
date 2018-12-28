@@ -1,17 +1,6 @@
-<DOCTYPE html>
-<title>Conure_Steve Maps MC</title>
 <head>
-    <style>
-	/*button {
-	    width:250px;
-	    height:125px;
-   	    margin:0 auto;
-            display:block;
-	}*/
-    </style>
-    <script>
-// This will hold the the file as a local object URL
-var _OBJECT_URL;
+	<script>
+		var _OBJECT_URL;
 
 // Call an AJAX
 document.querySelector('#download-button').addEventListener('click', function() {
@@ -33,7 +22,7 @@ document.querySelector('#download-button').addEventListener('click', function() 
     		document.querySelector('#save-file').setAttribute('href', _OBJECT_URL);
     		
     		// Set name of download
-    		document.querySelector('#save-file').setAttribute('download', 'download/§4Unfair §EDon\'t §6Take §CDamage§7.zip');
+    		document.querySelector('#save-file').setAttribute('download', 'download/§4Unfair\ §EDon\'t\ §6Take\ §CDamage§7.zip');
     		
     		// Recommended : Revoke the object URL after some time to free up resources
     		// There is no way to find out whether user finished downloading
@@ -51,15 +40,14 @@ document.querySelector('#download-button').addEventListener('click', function() 
     request.responseType = 'blob';
     
     // Downloading a JPEG file
-    request.open('get', 'download/§4Unfair §EDon\'t §6Take §CDamage§7.zip'); 
+    request.open('get', 'download/§4Unfair\ §EDon\'t\ §6Take\ §CDamage§7.zip'); 
     
     request.send(); 
 });
-    </script>
+
+	</script>
 </head>
-<body bgcolor="#000015">
-    <p align="center"><font size="+3"><span style="color: #ccccff;">Unfair Don't Take Damage</span></font><br>
-    <font size="+1"><span style="color: #ccccff;">Created By: Conure_Steve</span></font></p>
-    <button id="download-button">Download</button>
-    <a id="save-file">Save File</a>
+</body>
+	<button id="download-button">Download
+	<a id="save-file">Save File</a>
 </body>
