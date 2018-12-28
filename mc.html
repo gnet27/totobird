@@ -10,13 +10,55 @@
 	}
     </style>
     <script>
-        function udtd_dl {
-	    window.location.replace("https://totobird.cf/download/%C2%A74Unfair%20%C2%A7EDon't%20%C2%A76Take%20%C2%A7CDamage%C2%A77.zip/")
-	}
+// This will hold the the file as a local object URL
+var _OBJECT_URL;
+
+// Call an AJAX
+document.querySelector('#download-button').addEventListener('click', function() {
+	var request = new XMLHttpRequest();
+    
+    request.addEventListener('readystatechange', function(e) {
+    	if(request.readyState == 2 && request.status == 200) {
+    		// Download is being started
+    	}
+    	else if(request.readyState == 3) {
+    		// Download is under progress
+    	}
+    	else if(request.readyState == 4) {
+    		// Downloaing has finished
+
+    		_OBJECT_URL = URL.createObjectURL(request.response);
+
+    		// Set href as a local object URL
+    		document.querySelector('#save-file').setAttribute('href', _OBJECT_URL);
+    		
+    		// Set name of download
+    		document.querySelector('#save-file').setAttribute('download', 'download/§4Unfair §EDon\'t §6Take §CDamage§7.zip');
+    		
+    		// Recommended : Revoke the object URL after some time to free up resources
+    		// There is no way to find out whether user finished downloading
+    		setTimeout(function() {
+    			window.URL.revokeObjectURL(_OBJECT_URL);
+    		}, 60*1000);
+    	}
+    });
+    
+    request.addEventListener('progress', function(e) {
+    	var percent_complete = (e.loaded / e.total)*100;
+    	console.log(percent_complete);
+    });
+    
+    request.responseType = 'blob';
+    
+    // Downloading a JPEG file
+    request.open('get', 'download/§4Unfair §EDon\'t §6Take §CDamage§7.zip'); 
+    
+    request.send(); 
+});
     </script>
 </head>
 <body bgcolor="#000015">
     <p align="center"><font size="+3"><span style="color: #ccccff;">Unfair Don't Take Damage</span></font><br>
     <font size="+1"><span style="color: #ccccff;">Created By: Conure_Steve</span></font></p>
-    <button onclick="udtd_dl()">Download</button>
+    <button id="download-button">Load File<a id="save-file">Download</a></button>
 </body>
