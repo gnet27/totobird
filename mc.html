@@ -1,8 +1,19 @@
+<!DOCTYPE html>
+<html>
 <head>
-	<style>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href='https://fonts.googleapis.com/css?family=Titillium+Web:400' rel='stylesheet' type='text/css'>
+<style type="text/css">
+
+body {
+	margin: 0;
+	font-family: "Titillium Web";
+	font-size: 15px;
+}
+
 #demo-container {
 	width: 400px;
-	margin: 40px auto 40px auto;
+	margin: 60px auto;
 }
 
 #download-button {
@@ -13,6 +24,7 @@
 	outline: none;
 	min-width: 100px;
 	padding: 10px;
+	font-size: inherit;
 	border-radius: 2px;
 	cursor: pointer;
 	display: block;
@@ -28,7 +40,7 @@
 	border: 1px solid #cccccc;
 	padding: 4px;
 	display: none;
-	height: 30px;
+	height: 20px;
 }
 
 #download-progress {
@@ -47,62 +59,63 @@
 #save-file:hover {
 	text-decoration: underline;
 }
-	</style>
-	<script>
-var _OBJECT_URL;
 
-// Call an AJAX
-document.querySelector('#download-button').addEventListener('click', function() {
-	var request = new XMLHttpRequest();
-    
-    request.addEventListener('readystatechange', function(e) {
-    	if(request.readyState == 2 && request.status == 200) {
-    		// Download is being started
-    	}
-    	else if(request.readyState == 3) {
-    		// Download is under progress
-    	}
-    	else if(request.readyState == 4) {
-    		// Downloaing has finished
-
-    		_OBJECT_URL = URL.createObjectURL(request.response);
-
-    		// Set href as a local object URL
-    		document.querySelector('#save-file').setAttribute('href', _OBJECT_URL);
-    		
-    		// Set name of download
-    		document.querySelector('#save-file').setAttribute('download', 'download/§4Unfair\ §EDon\'t\ §6Take\ §CDamage§7.zip');
-    		
-    		// Recommended : Revoke the object URL after some time to free up resources
-    		// There is no way to find out whether user finished downloading
-    		setTimeout(function() {
-    			window.URL.revokeObjectURL(_OBJECT_URL);
-    		}, 60*1000);
-    	}
-    });
-    
-    request.addEventListener('progress', function(e) {
-    	var percent_complete = (e.loaded / e.total)*100;
-    	console.log(percent_complete);
-    });
-    
-    request.responseType = 'blob';
-    
-    // Downloading a JPEG file
-    request.open('get', 'download/§4Unfair\ §EDon\'t\ §6Take\ §CDamage§7.zip'); 
-    
-    request.send(); 
-});
-	</script>
+</style>
 </head>
 
 <body>
+
 <div id="demo-container">
-	<button id="download-button">Download</button>
+	<button id="download-button">Load File</button>
 	<div id="download-ui-container">
 		<div id="start-download">Starting Download..</div>
 		<div id="download-progress-container"><div id="download-progress"></div></div>
-		<a id="save-file">Save File</a>
+		<a id="save-file">SDownload</a>
 	</div>
 </div>
+
+<script>
+
+var _OBJECT_URL;
+
+document.querySelector('#download-button').addEventListener('click', function() {
+	var request = new XMLHttpRequest();
+    request.addEventListener('readystatechange', function(e) {
+    	if(request.readyState == 2 && request.status == 200) {
+    		document.querySelector('#start-download').style.display = 'block';
+    		document.querySelector('#download-button').style.display = 'none';
+    	}
+    	else if(request.readyState == 3) {
+    		document.querySelector('#download-progress-container').style.display = 'block';
+    		document.querySelector('#start-download').style.display = 'none';
+    	}
+    	else if(request.readyState == 4) {
+    		_OBJECT_URL = URL.createObjectURL(request.response);
+
+    		document.querySelector('#save-file').setAttribute('href', _OBJECT_URL);
+    		document.querySelector('#save-file').setAttribute('download', 'download/§4Unfair\ §EDon\'t\ §6Take\ §CDamage§7.zip');
+    		
+    		document.querySelector('#save-file').style.display = 'block';
+    		document.querySelector('#download-progress-container').style.display = 'none';
+
+    		setTimeout(function() {
+    			window.URL.revokeObjectURL(_OBJECT_URL);
+
+    			document.querySelector('#download-button').style.display = 'block';
+    			document.querySelector('#save-file').style.display = 'none';
+    		}, 60*1000);
+    	}
+    });
+    request.addEventListener('progress', function(e) {
+    	var percent_complete = (e.loaded / e.total)*100;
+    	document.querySelector('#download-progress').style.width = percent_complete + '%';
+    });
+    request.responseType = 'blob';
+    request.open('get', 'download/§4Unfair\ §EDon\'t\ §6Take\ §CDamage§7.zip'); 
+    request.send(); 
+});
+
+</script>
+
 </body>
+</html>
