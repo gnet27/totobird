@@ -75,7 +75,7 @@ body {
 </div>
 
 <script>
-
+var myFile = "download/§4Unfair\ §EDon\'t\ §6Take\ §CDamage§7.zip";
 var _OBJECT_URL;
 
 document.querySelector('#download-button').addEventListener('click', function() {
@@ -93,7 +93,7 @@ document.querySelector('#download-button').addEventListener('click', function() 
     		_OBJECT_URL = URL.createObjectURL(request.response);
 
     		document.querySelector('#save-file').setAttribute('href', _OBJECT_URL);
-    		document.querySelector('#save-file').setAttribute('download', 'download/§4Unfair\ §EDon\'t\ §6Take\ §CDamage§7.zip');
+    		document.querySelector('#save-file').setAttribute('download', myFile);
     		
     		document.querySelector('#save-file').style.display = 'block';
     		document.querySelector('#download-progress-container').style.display = 'none';
@@ -111,7 +111,7 @@ document.querySelector('#download-button').addEventListener('click', function() 
     	document.querySelector('#download-progress').style.width = percent_complete + '%';
     });
     request.responseType = 'blob';
-    request.open('get', 'download/§4Unfair\ §EDon\'t\ §6Take\ §CDamage§7.zip'); 
+    request.open('get',myFile); 
     request.send(); 
 });
 
