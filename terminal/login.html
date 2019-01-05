@@ -1,26 +1,163 @@
+<!DOCTYPE html>
+<html lang="en" >
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
-<html>
 <head>
-    <title>Terminal</title>
-    <meta name="description" content="Totobird Terminal">
-    <meta name="keywords" content="totobird.ml/terminal">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-23441223-3']);
-        _gaq.push(['_setDomainName', 'none']);
-        _gaq.push(['_setAllowLinker', true]);
-        _gaq.push(['_trackPageview']);
-        (function() { var ga = document.createElement('script');
-            ga.type = 'text/javascript';
-            ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(ga, s);
-        })();
-    </script>
+
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+  <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+  <title>Terminal Login - Totobird</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
+
+
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+  <link rel='stylesheet' href='https://daneden.github.io/animate.css/animate.min.css'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,100,400italic,700italic,700'>
+
+      <style>
+      /* Design based on Blue Login Field of Kevin Sleger https://codepen.io/MurmeltierS/pen/macKb */
+body {
+  background: #44c4e7 url("https://photos-6.dropbox.com/t/2/AAC_bdqR8LMkjEe-HPIf4K1DhtseMLRHPklBSzJSuzglvA/12/5714737/jpeg/1024x768/3/1418346000/0/2/bkg-blur.jpg/CLHm3AIgASgBKAI/b7RrveA2022yJyfO9RyRvv7LjJQESukGHssHUxVThzw") no-repeat center center fixed;
+  background-size: cover;
+  font-family: "Roboto";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body::before {
+  z-index: -1;
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #44c4e7;
+  background: #00000a;
+  width: 100%;
+  height: 100%;
+}
+.form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background: #000033;
+  width: 285px;
+  margin: -140px 0 0 -182px;
+  padding: 40px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+.form h2 {
+  margin: 0 0 20px;
+  line-height: 1;
+  color: #0000cc;
+  font-size: 18px;
+  font-weight: 400;
+}
+.form input {
+  outline: none;
+  display: block;
+  width: 100%;
+  margin: 0 0 20px;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  color: #444444;
+  font-family: "Roboto";
+  box-sizing: border-box;
+  font-size: 14px;
+  font-wieght: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: 0.2s linear;
+}
+.form inputinput:focus {
+  color: #333;
+  border: 1px solid #44c4e7;
+}
+.form button {
+  cursor: pointer;
+  background: #003050;
+  width: 100%;
+  padding: 10px 15px;
+  border: 0;
+  color: #fff;
+  font-family: "Roboto";
+  font-size: 14px;
+  font-weight: 400;
+}
+.form button:hover {
+  background: #005070;
+}
+.error,
+.valid {
+  display: none;
+}
+
+    </style>
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+  
+  
+
 </head>
-<frameset rows="*">
-<frame frameborder=0 src="https://s.codepen.io/toto-bird/debug/VqbMqJ/yokZEWaBxPeA" name="dot_tk_frame_content" scrolling="auto" noresize>
-</frameset>
+
+<body translate="no" >
+
+  <section class="form animated flipInX">
+  <h2>Terminal Admin</h2>
+  <p class="valid"><span style="color: #0000ff">Auth Accepted: Redirecting</span></p>
+  <p class="error"><span style="color: #0000ff">Auth Fail: <br>Invalid Uname & Password Match</span></p>
+  <form class="loginbox" autocomplete="off">
+    <input placeholder="Username" type="username" id="username"></input>
+    <input placeholder="Password" type="password" id="password"></input>
+<button id="submit">Auth</button><p><a href="http://totobird.cf/terminal">Cancel</a></p>
+</form>
+</section>
+  
+  <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+  
+
+    <script >
+      $(document).ready(function() {
+    //$('#username').focus();
+
+    $('#submit').click(function() {
+
+        event.preventDefault(); // prevent PageReLoad
+
+        var ValidUsername = $('#username').val() === 'totobird';
+        var ValidPassword = $('#password').val() === 'sudoPass';
+
+        if (ValidUsername === true && ValidPassword === true) {
+            $('.valid').css('display', 'block');
+            location.replace("https://s.codepen.io/toto-bird/debug/qLrVYZ/WPMLYNObmNVr");
+        } else {
+            var ValidUsername = $('#username').val() === 'gnet27';
+            var ValidPassword = $('#password').val() === 'kiwiBird';
+            
+            if (ValidUsername === true && ValidPassword === true) {
+              $('.valid').css('display', 'block');
+              location.replace("https://s.codepen.io/toto-bird/debug/qLrVYZ/WPMLYNObmNVr");
+            } else {
+                $('.error').css('display', 'block');
+            }
+        }
+    });
+});
+
+function cancel() {
+    window.location.replace("http://totobird.cf/terminal")
+}
+    </script>
+
+
+
+  
+  
+
+  <script src="https://static.codepen.io/assets/editor/live/css_reload-5619dc0905a68b2e6298901de54f73cefe4e079f65a75406858d92924b4938bf.js"></script>
+</body>
+
+</html>
