@@ -647,11 +647,11 @@ function genrandpscd() {
   return h;
 }
 
-pscd = genrandpscd();
-var ptpscd = pscd[0][0]+pscd[1][0]+pscd[2][0]+pscd[3][0]+pscd[3][1]+pscd[2][1]+pscd[1][1]+pscd[0][1];
+var pscd = genrandpscd();
+var version = pscd[0][0]+pscd[1][0]+pscd[2][0]+pscd[3][0]+pscd[3][1]+pscd[2][1]+pscd[1][1]+pscd[0][1];
 
 var terminalTpl = "<header class='terminal-title'>" +
-    "<span>totobird terminal - " + ptpscd[0]+ptpscd[1]+ptpscd[2]+ptpscd[3]+"_zone "+ptpscd[4]+ptpscd[5]+": version."+ptpscd[6]+ptpscd[7]+"</span>" +
+    "<span>totobird terminal - " + version[0]+version[1]+version[2]+version[3]+"_zone "+version[4]+version[5]+": version."+version[6]+version[7]+"</span>" +
     "<h3>access code required</h3>" +
   "</header>" +
   "<div class='seq-pad'>" +
@@ -910,7 +910,7 @@ delete terminalKeys;
 delete rand4;
 delete genrandpscd;
 delete pscd;
-ptpscd = ptpscd[0]+ptpscd[1]+ptpscd[2]+ptpscd[3]+"_zone "+ptpscd[4]+ptpscd[5]+": version."+ptpscd[6]+ptpscd[7]
+version = version[0]+version[1]+version[2]+version[3]+"_zone "+version[4]+version[5]+": version."+version[6]+version[7]
 delete terminalTpl;
 delete Panel;
 delete PanelView;
