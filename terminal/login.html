@@ -4,99 +4,571 @@
 <head>
 
   <meta charset="UTF-8">
-  <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
-  <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
-  <title>Terminal Login - Totobird</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
-
-
+  <link rel="shortcut icon" type="image/x-icon" href="https://totobird.cf/sources/terminal.png" />
+  <link rel="mask-icon" type="" href="https://totobird.cf/sources/terminal.png" color="#111" />
+  <title>Totobird Terminal - Login</title>
   
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 
-  <link rel='stylesheet' href='https://daneden.github.io/animate.css/animate.min.css'>
-<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:400,100,400italic,700italic,700'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css'>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Dosis:400:500:600'>
 
       <style>
-      /* Design based on Blue Login Field of Kevin Sleger https://codepen.io/MurmeltierS/pen/macKb */
-body {
-  background: #44c4e7 url("https://photos-6.dropbox.com/t/2/AAC_bdqR8LMkjEe-HPIf4K1DhtseMLRHPklBSzJSuzglvA/12/5714737/jpeg/1024x768/3/1418346000/0/2/bkg-blur.jpg/CLHm3AIgASgBKAI/b7RrveA2022yJyfO9RyRvv7LjJQESukGHssHUxVThzw") no-repeat center center fixed;
-  background-size: cover;
-  font-family: "Roboto";
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+      * {
+  box-sizing: border-box;
 }
-body::before {
-  z-index: -1;
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: #44c4e7;
-  background: #00000a;
+
+html, body {
+  margin: 0;
+  padding: 0;
+  position: relative;
   width: 100%;
   height: 100%;
-}
-.form {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  background: #000033;
-  width: 285px;
-  margin: -140px 0 0 -182px;
-  padding: 40px;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-}
-.form h2 {
-  margin: 0 0 20px;
-  line-height: 1;
-  color: #0000cc;
-  font-size: 18px;
+  background-color: #3d4340;
+  font-family: "Dosis";
   font-weight: 400;
-}
-.form input {
-  outline: none;
-  display: block;
-  width: 100%;
-  margin: 0 0 20px;
-  padding: 10px 15px;
-  border: 1px solid #ccc;
-  color: #444444;
-  font-family: "Roboto";
-  box-sizing: border-box;
-  font-size: 14px;
-  font-wieght: 400;
   -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: grayscale;
   -moz-osx-font-smoothing: grayscale;
-  transition: 0.2s linear;
+  text-shadow: 0 1px rgba(255, 255, 255, 0.1);
+  background: #212121;
 }
-.form inputinput:focus {
-  color: #333;
-  border: 1px solid #44c4e7;
-}
-.form button {
+
+/* VARS */
+/* $teal: #79BB9F; */
+/* STYLES */
+button {
+  -webkit-appearance: none;
+  outline: none;
+  background: tranparent;
+  border: none;
+  display: block;
   cursor: pointer;
-  background: #003050;
-  width: 100%;
-  padding: 10px 15px;
-  border: 0;
-  color: #fff;
-  font-family: "Roboto";
+}
+
+.login {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -moz-box-align: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+}
+
+.terminal.state--frozen .pwd__btn {
+  cursor: default;
+  pointer-events: none;
+}
+.terminal.state--warp {
+  -moz-animation: warpOut 0.35s ease;
+  -webkit-animation: warpOut 0.35s ease;
+  animation: warpOut 0.35s ease;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+.terminal-title {
+  text-transform: uppercase;
+  color: rgba(87, 200, 144, 0.8);
+  padding-bottom: 48px;
+}
+.terminal-title span, .terminal-title h3 {
+  opacity: 0;
+  -moz-transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+.terminal-title span {
+  display: block;
   font-size: 14px;
+  -moz-animation: shiftInUp 0.35s ease 0.2s;
+  -webkit-animation: shiftInUp 0.35s ease 0.2s;
+  animation: shiftInUp 0.35s ease 0.2s;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+.terminal-title h3 {
+  font-size: 42px;
+  font-weight: 600;
+  -moz-animation: shiftInUp 0.35s ease 0.3s;
+  -webkit-animation: shiftInUp 0.35s ease 0.3s;
+  animation: shiftInUp 0.35s ease 0.3s;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+.seq-pad {
+  padding: 24px 24px 0 24px;
+  border: 1px solid rgba(87, 200, 144, 0.15);
+  position: relative;
+  opacity: 0;
+  -moz-transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -moz-animation: warpIn 0.45s ease;
+  -webkit-animation: warpIn 0.45s ease;
+  animation: warpIn 0.45s ease;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+.seq-pad__cnr {
+  position: absolute;
+  display: block;
+  width: 6px;
+  height: 6px;
+  background-color: #57c890;
+}
+.seq-pad__cnr.cnr--tp-lt {
+  top: 2px;
+  left: 2px;
+}
+.seq-pad__cnr.cnr--tp-rt {
+  top: 2px;
+  right: 2px;
+}
+.seq-pad__cnr.cnr--bt-lt {
+  bottom: 2px;
+  left: 2px;
+}
+.seq-pad__cnr.cnr--bt-rt {
+  bottom: 2px;
+  right: 2px;
+}
+
+.seq-pad__inr {
+  overflow: hidden;
+}
+
+.pad-btn, .pad-btn--blnk {
+  display: block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  float: left;
+  margin-right: 6px;
+  margin-bottom: 26px;
+}
+.pad-btn:nth-child(8n + 1), .pad-btn--blnk:nth-child(8n + 1) {
+  clear: left;
+}
+
+.pad-btn {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: rgba(87, 200, 144, 0.8);
+  font-family: "Dosis";
+  font-size: 38px;
   font-weight: 400;
+  -moz-transition: all 0.25s;
+  -o-transition: all 0.25s;
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s;
 }
-.form button:hover {
-  background: #005070;
+.pad-btn:hover {
+  color: #57c890;
+  background-color: rgba(255, 255, 255, 0.15);
 }
-.error,
-.valid {
+.pad-btn.state--active {
+  color: #c2b769;
+  background-color: rgba(194, 160, 105, 0.15);
+}
+.pad-btn.state--active .pad-btn__bdr {
+  background-color: rgba(194, 160, 105, 0.65);
+}
+.pad-btn.state--error {
+  color: #cc6570;
+  background-color: rgba(189, 93, 104, 0.15);
+}
+.pad-btn.state--error .pad-btn__bdr {
+  background-color: rgba(189, 93, 104, 0.65);
+}
+.pad-btn.state--success {
+  color: #76c160;
+  background-color: rgba(61, 102, 69, 0.15);
+}
+.pad-btn.state--success .pad-btn__bdr {
+  background-color: rgba(61, 102, 69, 0.85);
+}
+
+.pad-btn__sqrs {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  overflow: hidden;
+}
+.pad-btn__sqrs .pad-btn__sqr {
+  width: 4px;
+  height: 4px;
+  display: block;
+  float: left;
+  margin-right: 2px;
+  background-color: #57c890;
+}
+
+.pad-btn__bdr {
+  display: block;
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background-color: rgba(87, 200, 144, 0.4);
+}
+.pad-btn__bdr:before, .pad-btn__bdr:after {
+  content: "";
+  position: absolute;
+  display: block;
+  background-color: inherit;
+}
+.pad-btn__bdr.bdr--tp, .pad-btn__bdr.bdr--bt {
+  height: 1px;
+  width: calc(100% - 12px);
+  left: 0;
+  right: 0;
+  top: 0;
+  margin: auto;
+}
+.pad-btn__bdr.bdr--tp:before, .pad-btn__bdr.bdr--tp:after, .pad-btn__bdr.bdr--bt:before, .pad-btn__bdr.bdr--bt:after {
+  width: 2px;
+  height: 1px;
+  top: 0;
+  left: -6px;
+}
+.pad-btn__bdr.bdr--tp:after, .pad-btn__bdr.bdr--bt:after {
+  left: auto;
+  right: -6px;
+}
+.pad-btn__bdr.bdr--bt {
+  top: auto;
+  bottom: 0;
+}
+.pad-btn__bdr.bdr--rt, .pad-btn__bdr.bdr--lt {
+  width: 1px;
+  height: calc(100% - 12px);
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+}
+.pad-btn__bdr.bdr--lt {
+  left: 0;
+  right: auto;
+}
+
+.terminal-footer {
+  position: relative;
+  width: 100%;
+  margin-top: 26px;
+  clear: both;
+  text-align: center;
+  min-height: 40px;
+}
+
+.btn--clr {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 26px;
+  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 26px;
+  padding: 0 12px;
+  font-weight: 500;
+  border: none;
+  background-color: #8F1934;
+  color: #1a1a1a;
+  visibility: hidden;
+  opacity: 0;
+  -moz-transition: all, 0.25s;
+  -o-transition: all, 0.25s;
+  -webkit-transition: all, 0.25s;
+  transition: all, 0.25s;
+  -moz-transform: translate3d(0, -6px, 0);
+  -ms-transform: translate3d(0, -6px, 0);
+  -webkit-transform: translate3d(0, -6px, 0);
+  transform: translate3d(0, -6px, 0);
+}
+.btn--clr.state--visible {
+  visibility: visible;
+  opacity: 1;
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.verify-msg {
+  display: inline-block;
+  vertical-align: top;
+  line-height: 26px;
+  font-size: 16px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  -moz-transform: translate3d(0, 6px, 0);
+  -ms-transform: translate3d(0, 6px, 0);
+  -webkit-transform: translate3d(0, 6px, 0);
+  transform: translate3d(0, 6px, 0);
+  -moz-transition: width 0.25s, -moz-transform 0.25s;
+  -o-transition: width 0.25s, -o-transform 0.25s;
+  -webkit-transition: width 0.25s, -webkit-transform 0.25s;
+  transition: width 0.25s, transform 0.25s;
+  -moz-animation: blink 0.35s ease infinite alternate;
+  -webkit-animation: blink 0.35s ease infinite alternate;
+  animation: blink 0.35s ease infinite alternate;
+  -moz-animation-play-state: paused;
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
+.verify-msg.state--play {
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -moz-animation-play-state: running;
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+  width: 150px;
+}
+.verify-msg.state--error {
+  color: #cc6570;
+}
+.verify-msg.state--success {
+  color: #76c160;
+}
+
+.terminal-load-bar {
+  height: 2px;
+  width: 50%;
+  display: block;
+  position: relative;
+  margin-top: 10px;
+}
+.terminal-load-bar:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  bottom: 0;
+  margin: auto;
+  width: 0;
+  background: rgba(118, 193, 96, 0.35);
+  -moz-transition: width 1.8s;
+  -o-transition: width 1.8s;
+  -webkit-transition: width 1.8s;
+  transition: width 1.8s;
+}
+.terminal-load-bar.state--loading:before {
+  width: 100%;
+}
+
+.welcome {
   display: none;
+  width: 340px;
+}
+.welcome h2 {
+  font-size: 22px;
+  text-transform: uppercase;
+  color: #57c890;
+  line-height: 1;
+}
+.welcome p {
+  font-size: 14px;
+  line-height: 20px;
+  color: rgba(87, 200, 144, 0.7);
+  padding: 26px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.welcome .btn--rst {
+  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 26px;
+  padding: 0 12px;
+  font-weight: 500;
+  border: none;
+  background-color: #8F1934;
+  color: #1a1a1a;
+  display: inline-block;
+}
+.welcome .btn--ctn {
+  text-transform: uppercase;
+  font-size: 14px;
+  line-height: 26px;
+  padding: 0 12px;
+  font-weight: 500;
+  border: none;
+  background-color: #76c160;
+  color: #1a1a1a;
+  display: inline-block;
+}
+
+@-moz-keyframes shiftInUp {
+  0% {
+    opacity: 0;
+    -moz-transform: translate3d(0, 20px, 0);
+    transform: translate3d(0, 20px, 0);
+  }
+  100% {
+    opacity: 1;
+    -moz-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+@-webkit-keyframes shiftInUp {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, 20px, 0);
+    transform: translate3d(0, 20px, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes shiftInUp {
+  0% {
+    opacity: 0;
+    -moz-transform: translate3d(0, 20px, 0);
+    -ms-transform: translate3d(0, 20px, 0);
+    -webkit-transform: translate3d(0, 20px, 0);
+    transform: translate3d(0, 20px, 0);
+  }
+  100% {
+    opacity: 1;
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+@-moz-keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes warpIn {
+  0% {
+    opacity: 0;
+    -moz-transform: scale(0.8, 0.8);
+    -ms-transform: scale(0.8, 0.8);
+    -webkit-transform: scale(0.8, 0.8);
+    transform: scale(0.8, 0.8);
+    -moz-transform-origin: center center;
+    -ms-transform-origin: center center;
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+  }
+  100% {
+    opacity: 1;
+    -moz-transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
+    -moz-transform-origin: center center;
+    -ms-transform-origin: center center;
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+  }
+}
+@-moz-keyframes warpOut {
+  0% {
+    opacity: 1;
+    -moz-transform: scale(1, 1);
+    transform: scale(1, 1);
+    -moz-transform-origin: center center;
+    transform-origin: center center;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    -moz-transform: scale(1.2, 1.2);
+    transform: scale(1.2, 1.2);
+    -moz-transform-origin: center center;
+    transform-origin: center center;
+  }
+}
+@-webkit-keyframes warpOut {
+  0% {
+    opacity: 1;
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transform: scale(1.2, 1.2);
+    transform: scale(1.2, 1.2);
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+  }
+}
+@keyframes warpOut {
+  0% {
+    opacity: 1;
+    -moz-transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
+    -moz-transform-origin: center center;
+    -ms-transform-origin: center center;
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    -moz-transform: scale(1.2, 1.2);
+    -ms-transform: scale(1.2, 1.2);
+    -webkit-transform: scale(1.2, 1.2);
+    transform: scale(1.2, 1.2);
+    -moz-transform-origin: center center;
+    -ms-transform-origin: center center;
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+  }
 }
 
     </style>
 
   
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
-
+  
   
   
 
@@ -104,52 +576,335 @@ body::before {
 
 <body translate="no" >
 
-  <section class="form animated flipInX">
-  <h2>Terminal Admin</h2>
-  <p class="valid"><span style="color: #0000ff">Auth Accepted: Redirecting</span></p>
-  <p class="error"><span style="color: #0000ff">Auth Fail: <br>Invalid Uname & Password Match</span></p>
-  <form class="loginbox" autocomplete="off">
-    <input placeholder="Username" type="username" id="username"></input>
-    <input placeholder="Password" type="password" id="password"></input>
-<button id="submit">Auth</button><p><a href="http://totobird.cf/terminal">Cancel</a></p>
-</form>
-</section>
+  
+<main class="page">
+  <section class="login">
+    <div class="welcome">
+      <h2>Login Accepted</h2>
+      <p>You have logged into the admin terminal. This allows you to run as superuser. This may lead to the fact that you may destroy your own system. If you are sure that you wish to continue, press &quot;Continue&quot;. Else, press &quot;Cancel&quot;.</p>
+      <button class="btn--ctn" terminal-cntne="terminal-cntne">Continue</button>
+      <button class="btn--rst" terminal-reset="terminal-reset">Cancel</button>
+    </div>
+  </section>
+</main>
   
   <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js'></script>
 
   
 
     <script >
-      $(document).ready(function() {
-    //$('#username').focus();
+      function randkey(len) {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  for (var i = 0; i < len; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  return text;
+}
 
-    $('#submit').click(function() {
+var terminalKeys = [
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) }, 
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) },
+  { val: randkey(2), dots: Math.floor(Math.random() * 4) }];
 
-        event.preventDefault(); // prevent PageReLoad
+function rand4(list) {
+  var arr = []
+  while(arr.length < 4){
+    var r = Math.floor(Math.random()*24);
+    if(arr.indexOf(r) === -1) arr.push(r);
+  }
+  arr[0] = terminalKeys[arr[0]]["val"]
+  arr[1] = terminalKeys[arr[1]]["val"]
+  arr[2] = terminalKeys[arr[2]]["val"]
+  arr[3] = terminalKeys[arr[3]]["val"]
+  return arr;
+}
 
-        var ValidUsername = $('#username').val() === 'totobird';
-        var ValidPassword = $('#password').val() === 'sudoPass';
+function genrandpscd() {
+  var h = rand4();
+  return h;
+}
 
-        if (ValidUsername === true && ValidPassword === true) {
-            $('.valid').css('display', 'block');
-            location.replace("https://totobird.cf/terminal/authuser=true");
-        } else {
-            var ValidUsername = $('#username').val() === 'gnet27';
-            var ValidPassword = $('#password').val() === 'kiwiBird';
-            
-            if (ValidUsername === true && ValidPassword === true) {
-              $('.valid').css('display', 'block');
-              location.replace("https://s.codepen.io/toto-bird/debug/qLrVYZ/WPMLYNObmNVr");
-            } else {
-                $('.error').css('display', 'block');
-            }
-        }
-    });
+pscd = genrandpscd();
+var ptpscd = pscd[0][0]+pscd[1][0]+pscd[2][0]+pscd[3][0]+pscd[3][1]+pscd[2][1]+pscd[1][1]+pscd[0][1];
+
+var terminalTpl = "<header class='terminal-title'>" +
+    "<span>totobird terminal - " + ptpscd[0]+ptpscd[1]+ptpscd[2]+ptpscd[3]+"_zone "+ptpscd[4]+ptpscd[5]+": version."+ptpscd[6]+ptpscd[7]+"</span>" +
+    "<h3>access code required</h3>" +
+  "</header>" +
+  "<div class='seq-pad'>" +
+    "<span class='seq-pad__cnr cnr--tp-lt'></span>" +
+    "<span class='seq-pad__cnr cnr--tp-rt'></span>" +
+    "<span class='seq-pad__cnr cnr--bt-lt'></span>" +
+    "<span class='seq-pad__cnr cnr--bt-rt'></span>" +
+    "<div class='seq-pad__inr'>" +
+    
+    "<% _.each(data, function(item,key){ %>" +
+      "<% if(!item.val) { %>" +
+        "<div class='pad-btn--blnk'></div>" +
+      "<% } else { %>" +
+        "<button class='pad-btn' key='<%= item.val %>'>" +
+          "<%= item.val %>" +
+          "<span class='pad-btn__bdr bdr--tp'></span>" +
+          "<span class='pad-btn__bdr bdr--rt'></span>" +
+          "<span class='pad-btn__bdr bdr--bt'></span>" +
+          "<span class='pad-btn__bdr bdr--lt'></span>" +
+          "<div class='pad-btn__sqrs'>" +
+            "<% for(var i=0; i<item.dots; i++) { %>" +
+              "<span class='pad-btn__sqr'></span>" +
+            "<% } %>" +
+          "</div>" +
+        "</button>" +
+      "<% } %>" +
+    "<% });  %>" +
+    
+    "</div>" +
+  "</div>" +
+  "<div class='terminal-footer'>" +
+    "<button class='btn--clr' pad-actn-clr>reset</button>" +
+    "<span class='verify-msg' pad-actn-msg></span>" +
+    "<span class='terminal-load-bar'></span>" +
+  "</div>";
+
+var Panel = Backbone.Model.extend({
+  
+  defaults: {
+  	passcode: pscd,
+  	sequence: [],  
+  },
+
+  initialize: function(opts) {
+    this.opts = opts;
+    this.set('sequence', []);
+    
+    this.listenTo(this, 'change', this.verify);
+  },
+  
+  addKey: function(key) {
+    var temp = this.get('sequence');
+    temp.push(key);
+    this.set('sequence', temp);
+    this.trigger('change');
+  },
+  
+  clearPass: function() {
+    this.set('sequence', []);
+  },
+  
+  testSequence: function() {
+    var i = 0,
+        match = true;
+    
+    for(var i=0; i< this.get('passcode').length; i++) {
+      if(this.get('sequence')[i] !== this.get('passcode')[i]) {
+        match = false;
+        break;
+      }
+    }
+    return match;
+  },
+  
+  isIncomplete: function() {
+    return (this.isEmpty() || this.isFull()) ? false : true;
+  },
+  
+  isEmpty: function() {
+    return (this.get('sequence').length == 0) ? true : false;
+  },
+  
+  isFull: function() {
+    return (this.get('sequence').length == this.get('passcode').length) ? true : false;
+  },
+  
+  verify: function() {
+    if (!this.isFull()) {
+      return;
+    } else {
+      (!this.testSequence())
+        ? this.trigger('mismatch')
+        : this.trigger('match');
+    }
+  }
 });
 
-function cancel() {
-    window.location.replace("http://totobird.cf/terminal")
+var PanelView = Backbone.View.extend({
+  
+  tagName: 'div',
+  className: 'terminal',
+    
+  model: null,
+  template: null,
+  
+  events: {
+    'click .pad-btn': 'addKey',
+    'click [pad-actn-clr]': 'resetForm'
+  },
+  
+  initialize: function(opts){
+    this.sequence = [];
+    
+    this.opts = opts;
+    
+    this.template = _.template(this.opts.template);
+    
+    this.listenTo(this.model, 'change:sequence', this.toggleControls);
+    this.listenTo(this.model, 'mismatch', this.setFailState);
+    this.listenTo(this.model, 'match', this.setPassState);
+    this.listenTo(this.model, 'destroy', this.trash);
+  },
+  
+  render: function(){
+    
+    var _self = this;
+    
+    this.$el.append(this.template({'data': this.opts.data }));
+    
+    this.$btnPads    = this.$el.find('.pad-btn');
+    this.$btnReset   = this.$el.find('[pad-actn-clr]');
+    this.$msg        = this.$el.find('[pad-actn-msg]');
+    this.$loadbar    = this.$el.find('.terminal-load-bar');
+    
+    this.$el.on('animationend webkitAnimationEnd', function(){
+      if (_self.$el.hasClass('state--warp')) {
+        _self.model.destroy();
+      }
+    });
+    
+    $('.login').append(this.$el);
+  },
+  
+  addKey: function(e){
+    var $temp = $(e.target);
+    if ($temp.hasClass('state--active')) {
+      return;
+    }
+    $temp.addClass('state--active');
+    this.model.addKey($temp.attr('key'));
+  },
+  
+  toggleControls: function(force) {
+    var show = (force == true || force == false) ? force : this.model.isIncomplete();
+    this.$btnReset[(show) ? 'addClass' : 'removeClass']('state--visible');
+  },
+    
+  setFailState: function() {
+    this.showMessage({
+      success: false,
+      btnClass: 'state--error',
+      formMsg: 'wrong sequence',
+      formMsgClass: 'state--error'
+    });
+  },
+  
+  setPassState: function() {
+    this.showMessage({
+      success: true,
+      btnClass: 'state--success',
+      formMsg: 'logging in',
+      formMsgClass: 'state--success'
+    });
+  },
+  
+  showMessage: function(obj) {
+    
+    var _self = this;
+    
+    this.$btnPads.filter('.state--active')
+                 .removeClass('state--active')
+                 .addClass(obj.btnClass);
+    
+    this.$el.addClass('state--frozen');
+    
+    this.$msg.text(obj.formMsg).addClass('state--play ' + obj.formMsgClass);
+  
+    if (!obj.success) {
+      setTimeout(function(){
+        _self.resetForm();
+      }, 2100);
+    } else {
+      setTimeout(function(){
+        _self.loginForm();
+      });
+    }
+  },
+  
+  resetForm: function() {
+    this.model.clearPass();
+  
+  	this.$el.removeClass('state--frozen');
+  	this.$btnPads.removeClass('state--active state--error state--success');
+  	this.$msg.text('').removeClass('state--play');
+  	this.toggleControls(false);
+  },
+  
+  loginForm: function() {
+    var _self = this;
+    this.$loadbar.addClass('state--loading')
+                 .on('transitionend webkitTransitionEnd', function(e){
+                    _self.$el.addClass('state--warp');
+                 });
+  },
+  
+  trash: function() {
+    toggleWelcome(true);
+    this.undelegateEvents();
+    this.remove();
+    Backbone.View.prototype.remove.call(this);
+  }
+});
+
+var initTerminal = function() {
+  var login = null, 
+      pad = null;
+  
+  login = new Panel();
+  pad = new PanelView({
+    model: login, 
+    template: terminalTpl, 
+    data: terminalKeys
+  });
+
+  pad.render();
 }
+
+var toggleWelcome = function(on) {
+	var $welcome = $('.welcome');
+  (on) ? $welcome.show() : $welcome.hide();
+}
+
+$('[terminal-reset]').on('click', function(){
+  toggleWelcome(false);
+  location.replace("https://totobird.cf/terminal");
+});
+
+$('[terminal-cntne]').on('click', function(){
+  toggleWelcome(false);
+  location.replace("https://totobird.cf/terminal/authuser=true");
+});
+
+initTerminal();
     </script>
 
 
