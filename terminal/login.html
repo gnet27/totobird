@@ -596,14 +596,13 @@ button {
 
     <script >
       function randkey(len) {
-  var text = "";
-  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  text = "";
   for (var i = 0; i < len; i++)
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
+    text += "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".charAt(Math.floor(Math.random() * "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".length));
   return text;
 }
 
-var terminalKeys = [
+terminalKeys = [
   { val: randkey(2), dots: Math.floor(Math.random() * 4) }, 
   { val: randkey(2), dots: Math.floor(Math.random() * 4) },
   { val: randkey(2), dots: Math.floor(Math.random() * 4) },
@@ -630,9 +629,9 @@ var terminalKeys = [
   { val: randkey(2), dots: Math.floor(Math.random() * 4) }];
 
 function rand4(list) {
-  var arr = []
+  arr = []
   while(arr.length < 4){
-    var r = Math.floor(Math.random()*24);
+    r = Math.floor(Math.random()*24);
     if(arr.indexOf(r) === -1) arr.push(r);
   }
   arr[0] = terminalKeys[arr[0]]["val"]
@@ -643,14 +642,14 @@ function rand4(list) {
 }
 
 function genrandpscd() {
-  var h = rand4();
+  h = rand4();
   return h;
 }
 
-var pscd = genrandpscd();
-var version = pscd[0][0]+pscd[1][0]+pscd[2][0]+pscd[3][0]+pscd[3][1]+pscd[2][1]+pscd[1][1]+pscd[0][1];
+pscd = genrandpscd();
+version = pscd[0][0]+pscd[1][0]+pscd[2][0]+pscd[3][0]+pscd[3][1]+pscd[2][1]+pscd[1][1]+pscd[0][1];
 
-var terminalTpl = "<header class='terminal-title'>" +
+terminalTpl = "<header class='terminal-title'>" +
     "<span>totobird terminal - " + version[0]+version[1]+version[2]+version[3]+"_zone "+version[4]+version[5]+": version."+version[6]+version[7]+"</span>" +
     "<h3>access code required</h3>" +
   "</header>" +
@@ -688,7 +687,7 @@ var terminalTpl = "<header class='terminal-title'>" +
     "<span class='terminal-load-bar'></span>" +
   "</div>";
 
-var Panel = Backbone.Model.extend({
+Panel = Backbone.Model.extend({
   
   defaults: {
   	passcode: pscd,
@@ -749,7 +748,7 @@ var Panel = Backbone.Model.extend({
   }
 });
 
-var PanelView = Backbone.View.extend({
+PanelView = Backbone.View.extend({
   
   tagName: 'div',
   className: 'terminal',
@@ -875,7 +874,7 @@ var PanelView = Backbone.View.extend({
   }
 });
 
-var initTerminal = function() {
+initTerminal = function() {
   var login = null, 
       pad = null;
   
@@ -889,7 +888,7 @@ var initTerminal = function() {
   pad.render();
 }
 
-var toggleWelcome = function(on) {
+toggleWelcome = function(on) {
 	var $welcome = $('.welcome');
   (on) ? $welcome.show() : $welcome.hide();
 }
@@ -905,10 +904,15 @@ $('[terminal-cntne]').on('click', function(){
 });
 
 initTerminal();
+
 delete randKey;
+delete text;
 delete terminalKeys;
 delete rand4;
 delete genrandpscd;
+delete arr;
+delete r;
+delete h;
 delete pscd;
 delete version;
 delete terminalTpl;
