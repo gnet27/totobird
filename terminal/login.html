@@ -594,8 +594,8 @@ button {
 
   
 
-    <script >
-      function randkey(len) {
+    <script>
+randkey = function(len) {
   text = "";
   for (var i = 0; i < len; i++)
     text += "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".charAt(Math.floor(Math.random() * "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".length));
@@ -628,7 +628,7 @@ terminalKeys = [
   { val: randkey(2), dots: Math.floor(Math.random() * 4) },
   { val: randkey(2), dots: Math.floor(Math.random() * 4) }];
 
-function rand4(list) {
+rand4 = function(list) {
   arr = []
   while(arr.length < 4){
     r = Math.floor(Math.random()*24);
@@ -640,8 +640,8 @@ function rand4(list) {
   arr[3] = terminalKeys[arr[3]]["val"]
   return arr;
 }
-
-function genrandpscd() {
+	    
+genrandpscd = function() {
   h = rand4();
   return h;
 }
@@ -905,10 +905,13 @@ $('[terminal-cntne]').on('click', function(){
 
 initTerminal();
 
+delete randkey;
 delete text;
 delete terminalKeys;
+delete rand4;
 delete arr;
 delete r;
+delete genrandpscd;
 delete h;
 delete pscd;
 delete version;
@@ -918,12 +921,6 @@ delete PanelView;
 delete initTerminal;
 delete toggleWelcome;
     </script>
-
-
-
-  
-  
-
   <script src="https://static.codepen.io/assets/editor/live/css_reload-5619dc0905a68b2e6298901de54f73cefe4e079f65a75406858d92924b4938bf.js"></script>
 </body>
 
